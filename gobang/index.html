@@ -12,8 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <div id="app">
         <h2 class="h2Title">五子棋</h2>
-        <h3>{{victory}}</h3>
-        <div class="Fbuttons">
+        <h3 v-if="victory">比赛结果：{{victory}}</h3>
+        <h3 v-else>待出棋方：{{pieceColor[step % 2] === 'white' ? '白子棋' : '黑子棋'}}</h3>
+        <div class="buttons-list">
             <input type="button" value="重新开始" class="restart" @click="restartInit()" />
             <input type="button" value="悔棋" class="regret" @click="regret()" />
             <input type="button" value="撤销悔棋" class="undo" @click="undo()" />
@@ -68,7 +69,7 @@
                     canvas.addEventListener("click", (e) => {
                         if (this.flag) {
                             alert("游戏结束,请重新开始~");
-                            this.restartInit();
+                            // this.restartInit();
                             return;
                         }
                         // 判断点击范围是否越出棋盘
@@ -375,7 +376,7 @@
                                 if (!that.flag) {
                                     if (that.pieceMapArr[m][n] == 0) {
                                         // 黑白交换下棋
-                                        console.log(this.className);
+                                        // console.log(this.className);
                                         // console.log('落下棋子', that.pieceColor[that.step % 2])
                                         // 确保填充颜色正确进行了判断
                                         if (
@@ -443,9 +444,8 @@
                                         return;
                                     }
                                 } else {
-                                    // that.flag = true;
                                     alert("游戏结束,请重新开始~");
-                                    this.restartInit();
+                                    // this.restartInit();
                                     return;
                                 }
                             };
